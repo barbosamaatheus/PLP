@@ -7,45 +7,30 @@ import li2.plp.expressions2.memory.AmbienteExecucao;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 
-/**
-* Um objeto desta classe representa uma Expressao de Concatenacao entre
-* objetos <code>ValorString</code>
-*/
-public class ExpConcat extends ExpBinaria{
-  
+public class ExpMenorIgualQue extends ExpBinaria {
+
+	public ExpMenorIgualQue(Expressao esq, Expressao dir) {
+		super(esq, dir, "<=");
+	}
 
 	/**
-	 * Controi uma Expressao de Concatenacao com as sub-expressoes especificadas.
-	 * Estas sub-expressoes devem ser tais que a avaliacao das mesmas resulta
-	 * em <code>ValorString</code>
-	 *
-	 * @param esq Expressao da esquerda
-	 * @param dir Expressao da direita
-	 */
-	public ExpConcat(Expressao esq, Expressao dir){
-		super(esq, dir, "++");
-	} 
-
-	/**
-	 * Retorna o valor da Expressao de Concatenacao
+	 * Retorna o valor da Expressao de MenorIgualQue
 	 */
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return new ValorString(
-					( (ValorString) getEsq().avaliar(amb)).valor() +
-					( (ValorString) getDir().avaliar(amb)).valor()
-		);
+		return new ValorBooleano(
+			((ValorInteiro) getEsq().avaliar(amb)).valor() <=
+			((ValorInteiro) getDir().avaliar(amb)).valor() );
 	}
 
 	/**
-	 * Retorna o valor da Expressao mutada de Concatenacao
+	 * Retorna o valor da Expressao Mutante de MenorIgualQue
 	 */
 	public Valor avaliarMutante(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return new ValorString(
-				( (ValorString) getEsq().avaliarMutante(amb)).valor() +
-						( (ValorString) getDir().avaliarMutante(amb)).valor()
-		);
+		return new ValorBooleano(
+				((ValorInteiro) getEsq().avaliar(amb)).valor() <
+						((ValorInteiro) getDir().avaliar(amb)).valor() );
 	}
-
+	
 	/**
 	 * Realiza a verificacao de tipos desta expressao.
 	 *
@@ -59,7 +44,7 @@ public class ExpConcat extends ExpBinaria{
 	 */
 	protected boolean checaTipoElementoTerminal(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return (getEsq().getTipo(ambiente).eString() && getDir().getTipo(ambiente).eString());
+		return (getEsq().getTipo(ambiente).eInteiro() && getDir().getTipo(ambiente).eInteiro());
 	}
 
 	/**
@@ -69,11 +54,10 @@ public class ExpConcat extends ExpBinaria{
 	 * @return os tipos possiveis desta expressao.
 	 */
 	public Tipo getTipo(AmbienteCompilacao ambiente) {
-		return TipoPrimitivo.STRING;
+		return TipoPrimitivo.BOOLEANO;
 	}
 	
-	@Override
-	public ExpBinaria clone() {
-		return new ExpConcat(esq.clone(), dir.clone());
+	public ExpMenorIgualQue clone() {
+		return new ExpMenorIgualQue(this.esq.clone(), this.dir.clone());
 	}
 }

@@ -55,6 +55,25 @@ public class ChamadaAssert implements Comando {
 	}
 
 	@Override
+	public AmbienteExecucaoImperativa mutar(AmbienteExecucaoImperativa ambiente) throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException {
+		ContextoExecucaoImperativa2 contexto = (ContextoExecucaoImperativa2) ambiente;
+
+		if (contexto.getTestar()) {
+
+
+			ValorConcreto esq = (ValorConcreto) this.esq.avaliar(ambiente);
+			ValorConcreto dir = (ValorConcreto) this.dir.avaliar(ambiente);
+
+			if (!esq.isEquals(dir)) {
+				contexto.restaura();
+				throw new AssertFalhouException(ambiente, this);
+			}
+		}
+
+		return ambiente;
+	}
+
+	@Override
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		return esq.getTipo(ambiente).eIgual(dir.getTipo(ambiente));

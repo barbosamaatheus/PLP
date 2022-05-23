@@ -35,6 +35,7 @@ public class InterpretadorPLP extends JFrame {
 
 	private JButton jButtonExecutar = null;
 	private JButton jButtonTestar = null;
+	private JButton jButtonMutar = null;
 	JTextField jTextFieldListaEntrada = null;
 	private JLabel jLabelListaEntrada = null;
 	private InterpreterKeyListener listener;
@@ -68,8 +69,8 @@ public class InterpretadorPLP extends JFrame {
 		Dimension d;
 		int w, h;
 
-		w = 390;
-		h = 480;
+		w = 490;
+		h = 580;
 
 		d = Toolkit.getDefaultToolkit().getScreenSize();
 		d.height /= 2;
@@ -113,6 +114,7 @@ public class InterpretadorPLP extends JFrame {
 			jContentPane.add(jLabelExecutar, null);
 			jContentPane.add(getButtonExecutar(), null);
 			jContentPane.add(getButtonTestar(), null);
+			jContentPane.add(getJButtonMutate(), null);
 			jContentPane.add(getJComboBoxLinguagens(), null);
 			jContentPane.add(jLabelListaEntrada, null);
 		}
@@ -269,6 +271,23 @@ public class InterpretadorPLP extends JFrame {
 					});
 		}
 		return jButtonTestar;
+	}
+
+	private JButton getJButtonMutate() {
+		if (jButtonMutar == null) {
+			jButtonMutar = new JButton();
+			jButtonMutar.setBounds(new java.awt.Rectangle(383, 8, 86, 19));
+			jButtonMutar.setText("mutar");
+			jButtonMutar
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							String sourceCode = jTextAreaCodigo.getText();
+							String listaEntrada = jTextFieldListaEntrada.getText();
+							interpreter.mutarCodigo(sourceCode, listaEntrada, jComboBoxLinguagens.getSelectedIndex());
+						}
+					});
+		}
+		return jButtonMutar;
 	}
 
 	/**
