@@ -26,12 +26,20 @@ public class ContextoExecucaoImperativa2 extends ContextoExecucaoImperativa
 	 * armazena apenas procedimentos.
 	 */
 	private Contexto<DefProcedimento> contextoProcedimentos;
-	
-	private boolean testar;
+
+
+	private boolean testar, mutar;
 
 	/**
 	 * Construtor da classe.
 	 */
+	public ContextoExecucaoImperativa2(ListaValor entrada, boolean testar, boolean mutar) {
+		super(entrada);
+		contextoProcedimentos = new Contexto<DefProcedimento>();
+		this.mutar = mutar;
+		this.testar = testar;
+	}
+
 	public ContextoExecucaoImperativa2(ListaValor entrada, boolean testar) {
 		super(entrada);
 		contextoProcedimentos = new Contexto<DefProcedimento>();
@@ -126,8 +134,12 @@ public class ContextoExecucaoImperativa2 extends ContextoExecucaoImperativa
 		}
 
 	}
-	
+
 	public boolean getTestar() {
 		return testar;
+	}
+
+	public boolean getMutar() {
+		return mutar;
 	}
 }

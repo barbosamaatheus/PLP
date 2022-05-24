@@ -7,4 +7,5 @@ public interface AmbienteExecucao extends Ambiente<Valor> {
 
 	public AmbienteExecucao clone();
 
+	boolean getMutar();
 }

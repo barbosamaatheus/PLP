@@ -246,7 +246,7 @@ public class InterpretadorPLP extends JFrame {
 									.getText();
 							interpreter.interpretarCodigo(sourceCode,
 									listaEntrada, jComboBoxLinguagens
-											.getSelectedIndex(), false);
+											.getSelectedIndex(), false, false);
 						}
 					});
 		}
@@ -266,7 +266,7 @@ public class InterpretadorPLP extends JFrame {
 									.getText();
 							interpreter.interpretarCodigo(sourceCode,
 									listaEntrada, jComboBoxLinguagens
-											.getSelectedIndex(), true);
+											.getSelectedIndex(), true, false);
 						}
 					});
 		}
@@ -282,8 +282,11 @@ public class InterpretadorPLP extends JFrame {
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 							String sourceCode = jTextAreaCodigo.getText();
-							String listaEntrada = jTextFieldListaEntrada.getText();
-							interpreter.mutarCodigo(sourceCode, listaEntrada, jComboBoxLinguagens.getSelectedIndex());
+							String listaEntrada = jTextFieldListaEntrada
+									.getText();
+							interpreter.interpretarCodigo(sourceCode,
+									listaEntrada, jComboBoxLinguagens
+											.getSelectedIndex(), true, true);
 						}
 					});
 		}
@@ -326,7 +329,7 @@ class InterpreterKeyListener implements KeyListener {
 			String sourceCode = this.frame.jTextAreaCodigo.getText();
 			String listaEntrada = this.frame.jTextFieldListaEntrada.getText();
 			this.frame.interpreter.interpretarCodigo(sourceCode, listaEntrada,
-					this.frame.jComboBoxLinguagens.getSelectedIndex(), false);
+					this.frame.jComboBoxLinguagens.getSelectedIndex(), false, false);
 		}
 	}
 

@@ -54,6 +54,22 @@ public class TestRunner {
 		
 		return builder.toString();
 	}
+
+	public static String report(boolean mutar) {
+		StringBuilder builder = new StringBuilder();
+
+		for (TestRun testRun : instance.testRuns) {
+			String name = testRun.testId.toString();
+			if (testRun.success) {
+				builder.append(String.format("\n%s %s: sucesso", name, mutar ? "com mutante ":""));
+			} else {
+				String excMessage = testRun.exception != null ? testRun.exception.getMessage() : "";
+				builder.append(String.format("\n%s %s: FALHOU - %s", name, mutar ? "com mutante ":"", excMessage));
+			}
+		}
+
+		return builder.toString();
+	}
 	
 	public static void clear() {
 		instance.testRuns.clear();

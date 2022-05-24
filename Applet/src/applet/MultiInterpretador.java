@@ -67,7 +67,7 @@ public class MultiInterpretador {
 	}
 
 	public void interpretarCodigo(String sourceCode, String listaEntrada,
-			int selectedIndex, boolean testar) {
+			int selectedIndex, boolean testar, boolean mutar) {
 		try {
 			ByteArrayInputStream fis = new ByteArrayInputStream(sourceCode
 					.getBytes());
@@ -92,7 +92,7 @@ public class MultiInterpretador {
 				interpretarImp1(fis, listaEntrada);
 				break;
 			case IMP2:
-				interpretarImp2(fis, listaEntrada, testar);
+				interpretarImp2(fis, listaEntrada, testar, mutar);
 				break;
 			case OO1:
 				interpretarOO1(fis, listaEntrada);
@@ -253,7 +253,7 @@ public class MultiInterpretador {
 		}
 	}
 
-	private void interpretarImp2(InputStream fis, String entradaStr, boolean testar)
+	private void interpretarImp2(InputStream fis, String entradaStr, boolean testar, boolean mutar)
 			throws Exception {
 		li2.plp.imperative2.Programa prog;
 		if (imp2Parser == null) {
@@ -269,8 +269,8 @@ public class MultiInterpretador {
 		if (prog.checaTipo(new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada))) {
 			
 			TestRunner.clear();
-			ListaValor valor = prog.executar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada, testar));
-			messageBoard.append(testar ? TestRunner.report() : "resultado = " + valor.toString());
+			ListaValor valor = prog.executar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada, testar, mutar));
+			messageBoard.append(testar ? TestRunner.report(mutar) : "resultado = " + valor.toString());
 			
 		} else {
 			messageBoard.append("erro de tipos!");
@@ -292,9 +292,8 @@ public class MultiInterpretador {
 		messageBoard.setText("sintaxe verificada com sucesso!\n");
 		li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
 		if (prog.checaTipo(new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada))) {
-			messageBoard.append("resultado com mutante = "
-					+ prog.mutar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada, false))
-					.toString());
+			ListaValor valor = prog.executar(new li2.plp.imperative2.memory.ContextoExecucaoImperativa2(entrada, true, true ));
+			messageBoard.append(true ? TestRunner.report(true) : "resultado = " + valor.toString());
 		} else {
 			messageBoard.append("erro de tipos!");
 		}

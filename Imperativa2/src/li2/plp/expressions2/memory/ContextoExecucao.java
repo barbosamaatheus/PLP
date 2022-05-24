@@ -29,4 +29,9 @@ public class ContextoExecucao extends Contexto<Valor>
 		
 		return retorno;
 	}
+
+	@Override
+	public boolean getMutar() {
+		return false;
+	}
 }

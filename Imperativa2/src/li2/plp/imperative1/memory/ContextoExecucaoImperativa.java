@@ -75,5 +75,10 @@ public class ContextoExecucaoImperativa extends ContextoExecucao
 			throw new VariavelNaoDeclaradaException(idArg);
 		}
     }
+
+    @Override
+    public boolean getMutar() {
+        return false;
+    }
 }
 

@@ -14,4 +14,6 @@ public interface AmbienteExecucaoImperativa2 extends AmbienteExecucaoImperativa 
 	
 	public boolean getTestar();
 
+	public boolean getMutar();
+
 }

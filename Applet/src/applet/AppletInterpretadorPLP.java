@@ -215,7 +215,7 @@ public class AppletInterpretadorPLP extends Applet {
 									.getText();
 							interpreter.interpretarCodigo(sourceCode,
 									listaEntrada, jComboBoxLinguagens
-											.getSelectedIndex(), false);
+											.getSelectedIndex(), false, false);
 						}
 					});
 		}
