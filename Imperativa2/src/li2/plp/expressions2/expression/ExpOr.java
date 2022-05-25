@@ -29,7 +29,10 @@ public class ExpOr extends ExpBinaria {
 	 * Retorna o valor da Expressao de disjuncao logica
 	 */
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-	return new ValorBooleano(
+		if(amb.getMutar()){
+			return avaliarMutante(amb);
+		}
+		return new ValorBooleano(
 				((ValorBooleano)getEsq().avaliar(amb)).valor() ||
 				((ValorBooleano)getDir().avaliar(amb)).valor() );
 	}
@@ -39,7 +42,7 @@ public class ExpOr extends ExpBinaria {
 	 */
 	public Valor avaliarMutante(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return new ValorBooleano(
-				((ValorBooleano)getEsq().avaliarMutante(amb)).valor() ||
+				((ValorBooleano)getEsq().avaliarMutante(amb)).valor() &&
 						((ValorBooleano)getDir().avaliarMutante(amb)).valor() );
 	}
 

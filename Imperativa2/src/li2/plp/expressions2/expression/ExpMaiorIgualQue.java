@@ -17,6 +17,9 @@ public class ExpMaiorIgualQue extends ExpBinaria {
 	 * Retorna o valor da Expressao de MaiorIgualQue
 	 */
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+		if(amb.getMutar()){
+			return avaliarMutante(amb);
+		}
 		return new ValorBooleano(
 			((ValorInteiro) getEsq().avaliar(amb)).valor() >=
 			((ValorInteiro) getDir().avaliar(amb)).valor() );
@@ -27,7 +30,7 @@ public class ExpMaiorIgualQue extends ExpBinaria {
 	 */
 	public Valor avaliarMutante(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return new ValorBooleano(
-				((ValorInteiro) getEsq().avaliar(amb)).valor() >
+				((ValorInteiro) getEsq().avaliar(amb)).valor() <=
 						((ValorInteiro) getDir().avaliar(amb)).valor() );
 	}
 	

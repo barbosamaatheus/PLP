@@ -29,7 +29,10 @@ public class ExpAnd extends ExpBinaria{
 	 * Retorna o valor da Expressao de Conjuncao Logica
 	 */
 	 public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return new ValorBooleano(
+		 if(amb.getMutar()){
+			 return avaliarMutante(amb);
+		 }
+		 return new ValorBooleano(
 					((ValorBooleano)getEsq().avaliar(amb)).valor() &&
 					((ValorBooleano)getDir().avaliar(amb)).valor()
 		);
@@ -40,7 +43,7 @@ public class ExpAnd extends ExpBinaria{
 	 */
 	public Valor avaliarMutante(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		return new ValorBooleano(
-				((ValorBooleano)getEsq().avaliar(amb)).valor() &&
+				((ValorBooleano)getEsq().avaliar(amb)).valor() ||
 						((ValorBooleano)getDir().avaliar(amb)).valor()
 		);
 	}

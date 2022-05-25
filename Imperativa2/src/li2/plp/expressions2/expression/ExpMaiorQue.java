@@ -17,6 +17,9 @@ public class ExpMaiorQue extends ExpBinaria {
 	 * Retorna o valor da Expressao de MaiorQue
 	 */
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+		if(amb.getMutar()){
+			return avaliarMutante(amb);
+		}
 		return new ValorBooleano(
 			((ValorInteiro) getEsq().avaliar(amb)).valor() >
 			((ValorInteiro) getDir().avaliar(amb)).valor() );
